@@ -1,0 +1,52 @@
+// 居中
+@mixin center($width:null,$height:null){
+    position: absolute;
+            top: 50%;
+            left: 50%;
+    @if $width and $height {
+            // do margin
+            width: $width;
+            height: $height;
+            margin-top: -($height / 2);
+            margin-left: -($width / 2);
+
+    } @else if not $width and not $height {
+            // do transform translate(-50%,-50%)
+            transform: translate(-50%,-50%);
+    } @else if not $width {
+            // do margin-top and transform translateX
+            height: $height;
+            margin-top: -(height / 2);
+            transform: translateX(-50%); 
+    } @else {
+            // do margin-left and transform translateY
+            width: $width;
+            margin-top: -(width / 2);
+            transform: translateY(-50%); 
+    }
+}
+
+// 背景渐变色
+@mixin gradient($from, $to) {
+    /* Fallback for sad browsers */
+    background-color: $to;
+    /* Mozilla Firefox */
+    background-image:-moz-linear-gradient($from, $to);
+    /* Opera */
+    background-image:-o-linear-gradient($from, $to);
+    /* WebKit (Safari 4+, Chrome 1+) */
+    background-image:-webkit-gradient(linear, left top, left bottom, color-stop(0, $from), color-stop(1, $to));
+    /* WebKit (Chrome 11+) */
+    background-image: -webkit-linear-gradient($from, $to);
+    /* IE10 */
+    background-image: -ms-linear-gradient($from, $to);
+    /* W3C */
+    background-image: linear-gradient($from, $to);
+}
+
+// 文本超出显示省略号
+@mixin ell() {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
