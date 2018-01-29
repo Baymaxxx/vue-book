@@ -9,7 +9,6 @@ export function loadPlay() {
 }
 
 export function loadUserSex() {
-    console.log(storage.get('USER_SEX', 'man'))
     return storage.get('USER_SEX', 'man')
 }
 

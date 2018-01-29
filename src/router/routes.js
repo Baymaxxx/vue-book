@@ -1,8 +1,9 @@
 import Hello from '@/components/Hello'
-import BookShelf from '@/components/book-shelf'
-import BookFeature from '@/components/book-feature'
-import BookCategory from '@/components/book-category'
-import BookRank from '@/components/book-rank'
+import BookShelf from '@/components/book-shelf/book-shelf'
+import BookFeature from '@/components/book-feature/book-feature'
+import BookCategory from '@/components/book-category/book-category'
+import BookRank from '@/components/book-rank/book-rank'
+import ReadMore from '@/components/book-feature/read-more'
 
 export default [
   {
@@ -28,5 +29,10 @@ export default [
       name: 'BookRank',
       component: BookRank
     }]
+  },
+  {
+    path: '/feature/hot',
+    name: 'hot',
+    component: ReadMore
   }
 ]

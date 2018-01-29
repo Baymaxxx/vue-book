@@ -8,7 +8,7 @@ const mutations = {
         state.history = history
     },
     [types.SET_USER_SEX](state, usersex) {
-        state.usersex = usersex
+        state.userSex = usersex
     },
     [types.SET_FAVORITE_LIST](state, list) {
         state.favoriteList = list

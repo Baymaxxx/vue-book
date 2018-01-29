@@ -1,21 +1,20 @@
-<!-- 图书排行 -->
+<!-- 图书分类 -->
 <template>
     <div>
-        <Header :hasNav='true' title='图书排行'></Header>
+        <Header :hasNav='false' title='图书分类'></Header>
         <div>
-            <button @click="savePlayHistory(openProjects)">保存</button>
-            <button @click="delPlayHistory()">删除</button>
+           <CategoryList></CategoryList>
+           <CategoryList></CategoryList>
+           <CategoryList></CategoryList>
         </div>
-        <template v-for="item in openProjects">
-            <div class="content" v-html="item.content" :key="item.title"></div>
-        </template>
     </div>
 </template>
 
 <script>
 import { getInternetNews } from '@/api/news'
 import { mapGetters, mapActions } from 'vuex'
-import Header from './layout/header'
+import Header from '../layout/header'
+import CategoryList from './category-list'
 
 export default {
   data() {
@@ -35,7 +34,8 @@ export default {
     })
   },
   components: {
-    Header
+    Header,
+    CategoryList
   }
 }
 </script>

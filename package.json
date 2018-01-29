@@ -17,6 +17,7 @@
     "lib-flexible": "^0.3.2",
     "px2rem-loader": "^0.1.7",
     "vue": "^2.4.2",
+    "vue-awesome-swiper": "^3.1.2",
     "vue-bottom-nav": "^1.1.2",
     "vue-router": "^2.7.0",
     "vuex": "^2.3.1"

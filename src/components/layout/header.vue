@@ -1,14 +1,15 @@
 <!-- header -->
 <template>
   <div class="header">
+    <i class="iconfont icon-houtui" :class="[hasNav ? 'displayNone' : hasBack ? 'left':'displayNone']" @click="goBack"></i>
     <h3 class="title" :class="[hasNav ? 'left' : 'center']">{{title}}</h3>
     <nav v-if="hasNav" class="nav">
       <ul>
-        <li :class="{'active': usersex === 'man'}" @click="changeUserSex('man')">男生</li>
-        <li :class="{'active': usersex !== 'man'}" @click="changeUserSex('femen')">女生</li>
+        <li :class="{'active': userSex === 'man'}" @click="changeUserSex('man')">男生</li>
+        <li :class="{'active': userSex !== 'man'}" @click="changeUserSex('femen')">女生</li>
       </ul>
     </nav>
-    <div v-show="hasSeach" class="search">
+    <div v-show="hasSeach" class="search" :class="[hasSeach ? '' : 'displayNone']">
       <a>
         <i class="iconfont icon-search"></i>
       </a>
@@ -28,6 +29,10 @@ export default {
       type: Boolean,
       default: true
     },
+    hasBack: {
+      type: Boolean,
+      default: false
+    },
     title: String
   },
   data() {
@@ -35,10 +40,13 @@ export default {
   },
   components: {},
   computed: {
-    ...mapGetters(['usersex'])
+    ...mapGetters(['userSex'])
   },
   methods: {
-    ...mapActions(['changeUserSex'])
+    ...mapActions(['changeUserSex']),
+    goBack() {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
@@ -47,22 +55,22 @@ export default {
   position: fixed;
   left: 0;
   top: 0;
+  z-index: 99999;
   width: 100%;
   height: $h-header;
   color: #fff;
   background-color: $color-header;
-  .title {
-    &.left {
+  text-align: center;
+  .left {
       position: absolute;
       top: 20px;
       left: 15px;
       font-size: 36px;
     }
-    &.center {
-      font-size: 40px;
+  .center {
+      font-size: 36px;
       line-height: $h-header;
     }
-  }
   .nav {
     ul {
       display: flex;

@@ -16,7 +16,7 @@
 <script>
 import { getInternetNews } from '@/api/news'
 import { mapGetters, mapActions } from 'vuex'
-import Header from './layout/header'
+import Header from '../layout/header'
 
 export default {
   data() {
@@ -43,6 +43,7 @@ export default {
 <style lang='scss' scoped>
 .shelf {
   .content {
+    text-align: center;
     .inner {
       @include center();
       .iconfont {

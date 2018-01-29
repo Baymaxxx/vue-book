@@ -47,6 +47,7 @@ export default {
   bottom: 0;
   width: 100%;
   background: #fff;
+  text-align: center;
   ul {
     display: flex;
     li {
