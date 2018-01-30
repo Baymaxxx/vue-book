@@ -1,23 +1,25 @@
 <!-- 精选图书 -->
 <template>
-    <div>
-        <Header :hasNav='true' title='精选图书'></Header>
-        <div class="body">
-          <div class='swiper-wrap'>
-            <swiper :options="swiperOption">
-              <swiper-slide v-for="slide, index in swiperSlides" :key="index">
-                 <img :src='["http://statics.zhuishushenqi.com/recommendPage/" + slide]' />
-              </swiper-slide>
-              <div class="swiper-pagination" slot="pagination"></div>
-            </swiper>
-          </div>
-          <div class='module-wrap'>
-            <FeatureModule></FeatureModule>
-            <FeatureModule></FeatureModule>
-            <FeatureModule></FeatureModule>
-          </div>
+  <div>
+    <Header :hasNav='true' title='精选图书'></Header>
+    <div class="body" ref="wrapper">
+      <div class="list-content">
+        <div class='swiper-wrap'>
+          <swiper :options="swiperOption">
+            <swiper-slide v-for="slide, index in swiperSlides" :key="index">
+              <img :src='["http://statics.zhuishushenqi.com/recommendPage/" + slide]' />
+            </swiper-slide>
+            <div class="swiper-pagination" slot="pagination"></div>
+          </swiper>
         </div>
+        <div class='module-wrap'>
+          <FeatureModule></FeatureModule>
+          <FeatureModule></FeatureModule>
+          <FeatureModule></FeatureModule>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -64,9 +66,9 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-  .body{
-    .swiper-container{
-      height: 260px;
-    }
+.body {
+  .swiper-container {
+    height: 260px;
   }
+}
 </style>

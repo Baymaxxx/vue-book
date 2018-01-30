@@ -4,6 +4,10 @@ import BookFeature from '@/components/book-feature/book-feature'
 import BookCategory from '@/components/book-category/book-category'
 import BookRank from '@/components/book-rank/book-rank'
 import ReadMore from '@/components/book-feature/read-more'
+import Search from '@/components/book-search/book-search'
+import SearchModule from '@/components/book-search/search-module'
+import SearchResult from '@/components/book-search/search-result'
+import BookDetail from '@/components/book-detail/book-detail'
 
 export default [
   {
@@ -32,7 +36,29 @@ export default [
   },
   {
     path: '/feature/hot',
-    name: 'hot',
+    name: 'Hot',
     component: ReadMore
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search,
+    children: [{
+      path: '/',
+      redirect: '/search/index'
+    }, {
+      path: '/search/index',
+      name: 'SearchModule',
+      component: SearchModule
+    }, {
+      path: '/search/result',
+      name: 'SearchResult',
+      component: SearchResult
+    }]
+  },
+  {
+    path: '/book-detail/:id',
+    name: 'BookDetail',
+    component: BookDetail
   }
 ]

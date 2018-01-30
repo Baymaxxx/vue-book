@@ -1,6 +1,6 @@
 <template>
   <div class="hello hasbottomnav hasheader">
-    <router-view></router-view>
+    <router-view class="scorll-wrap"></router-view>
     <BottomNav></BottomNav>
   </div>
 </template>

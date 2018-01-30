@@ -15,7 +15,6 @@
                 </router-link>
             </li>
             <li>
-
                 <router-link to="/category">
                     <i class="iconfont icon-fenlei"></i>
                     <p>分类</p>
@@ -46,6 +45,7 @@ export default {
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: $h-bottom;
   background: #fff;
   text-align: center;
   ul {

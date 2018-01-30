@@ -10,9 +10,9 @@
       </ul>
     </nav>
     <div v-show="hasSeach" class="search" :class="[hasSeach ? '' : 'displayNone']">
-      <a>
+      <router-link to="/search">
         <i class="iconfont icon-search"></i>
-      </a>
+      </router-link>
     </div>
   </div>
 </template>
