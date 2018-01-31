@@ -8,6 +8,7 @@ import Search from '@/components/book-search/book-search'
 import SearchModule from '@/components/book-search/search-module'
 import SearchResult from '@/components/book-search/search-result'
 import BookDetail from '@/components/book-detail/book-detail'
+import BookReading from '@/components/book-reading/reading'
 
 export default [
   {
@@ -55,10 +56,13 @@ export default [
       name: 'SearchResult',
       component: SearchResult
     }]
-  },
-  {
+  }, {
     path: '/book-detail/:id',
     name: 'BookDetail',
     component: BookDetail
+  }, {
+    path: '/book-reading',
+    name: 'BookReading',
+    component: BookReading
   }
 ]

@@ -59,11 +59,7 @@ export default {
     .body {
       margin: 10px 0;
       p {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        @include elln(2);
         color: #666;
         font-size: 24px;
       }

@@ -50,3 +50,12 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+// 文本超出n行显示省略号
+@mixin elln( $n ){
+        display: -webkit-box;
+        -webkit-line-clamp: $n;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+}

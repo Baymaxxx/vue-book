@@ -50,7 +50,7 @@
                 <CommentModule></CommentModule>
             </div>
             <div class="remmend-module">
-                <RemmentModule></RemmentModule>
+                <RemmendModule></RemmendModule>
             </div>
         </div>
         <ul class="page-bottom">
@@ -59,7 +59,7 @@
                 <p>加入书架</p>
             </li>
             <li class="read">
-                <router-link to="">
+                <router-link to="/book-reading">
                     <span>立即阅读</span>
                 </router-link>
             </li>
@@ -70,7 +70,7 @@
 <script>
 import Header from '../layout/header'
 import CommentModule from '../base/comment-module'
-import RemmentModule from '../base/remmend-module'
+import RemmendModule from '../base/remmend-module'
 
 export default {
   data() {
@@ -79,13 +79,16 @@ export default {
   components: {
     Header,
     CommentModule,
-    RemmentModule
+    RemmendModule
   },
   computed: {},
   methods: {}
 }
 </script>
 <style lang='scss' scoped>
+.hasbottomnav{
+    margin-bottom: $h-bottom + 20px;
+}
 .detail-inner {
   .title-module {
     display: flex;
@@ -162,6 +165,7 @@ export default {
   height: $h-bottom + 20px;
   text-align: center;
   border-top: 1px solid $color-border; /* no */
+  background: #fff;
   li {
     width: 50%;
     &.add-shelf {
