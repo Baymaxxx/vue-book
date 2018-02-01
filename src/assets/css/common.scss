@@ -30,12 +30,13 @@ td {
     -webkit-touch-callout: none;
     box-sizing: border-box;
 }
-body {
+html,body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     color: #333;
     width: 100%;
+    height: 100%;
     background: #fff;
 }
 header,
@@ -575,3 +576,6 @@ a.gray {
 *::-webkit-scrollbar{
     display: none;
 }
+.animated {
+    animation-duration: 0.2s;
+  }

@@ -9,6 +9,7 @@ import SearchModule from '@/components/book-search/search-module'
 import SearchResult from '@/components/book-search/search-result'
 import BookDetail from '@/components/book-detail/book-detail'
 import BookReading from '@/components/book-reading/reading'
+import Directories from '@/components/book-reading/book-directories'
 
 export default [
   {
@@ -64,5 +65,9 @@ export default [
     path: '/book-reading',
     name: 'BookReading',
     component: BookReading
+  }, {
+    path: '/directories',
+    name: 'Directories',
+    component: Directories
   }
 ]

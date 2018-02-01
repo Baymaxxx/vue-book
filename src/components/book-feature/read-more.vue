@@ -1,7 +1,7 @@
 <!-- readmore组件 -->
 <template>
     <div class="read-more">
-        <Header :hasBack='true' :hasNav='false' :hasSeach='false' title='更多热门'></Header>
+        <Header :hasBack='true' :hasNav='false' :hasSearch='false' title='更多热门'></Header>
         <div class='module-wrap'>
             <BookList></BookList>
             <BookList></BookList>

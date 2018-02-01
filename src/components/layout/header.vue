@@ -9,7 +9,7 @@
         <li :class="{'active': userSex !== 'man'}" @click="changeUserSex('femen')">女生</li>
       </ul>
     </nav>
-    <div v-show="hasSeach" class="search" :class="[hasSeach ? '' : 'displayNone']">
+    <div v-show="hasSearch" class="search" :class="[hasSearch ? '' : 'displayNone']">
       <router-link to="/search">
         <i class="iconfont icon-search"></i>
       </router-link>
@@ -25,7 +25,7 @@ export default {
       type: Boolean,
       default: false
     },
-    hasSeach: {
+    hasSearch: {
       type: Boolean,
       default: true
     },
