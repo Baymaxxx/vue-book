@@ -3,9 +3,8 @@
     <div>
         <Header :hasNav='false' title='图书分类'></Header>
         <div>
-           <CategoryList></CategoryList>
-           <CategoryList></CategoryList>
-           <CategoryList></CategoryList>
+           <CategoryList v-for="category in categories" :category="category"
+            v-if="category !== null" :key="category.title"></CategoryList>
         </div>
     </div>
 </template>
@@ -19,14 +18,18 @@ import CategoryList from './category-list'
 export default {
   data() {
     return {
-      openProjects: []
+      openProjects: [],
+      categories: []
     }
   },
   computed: {
     ...mapGetters(['playHistory'])
   },
   methods: {
-    ...mapActions(['savePlayHistory', 'delPlayHistory'])
+    ...mapActions(['savePlayHistory', 'delPlayHistory']),
+    fetchData() {
+      alert(1)
+    }
   },
   mounted() {
     getInternetNews().then(res => {

@@ -24,6 +24,7 @@
 
 <script>
 import { getInternetNews } from '@/api/news'
+import api from '@/api/api'
 import { mapGetters, mapActions } from 'vuex'
 import Header from '../layout/header'
 import FeatureModule from '../base/feature-module'
@@ -52,12 +53,27 @@ export default {
     ...mapGetters(['playHistory'])
   },
   methods: {
-    ...mapActions(['savePlayHistory', 'delPlayHistory'])
+    ...mapActions(['savePlayHistory', 'delPlayHistory']),
+    fetchData() {
+      api.getFeaturedData().then(data => {
+        console.log(data)
+        data = Array.from(data).sort((a, b) => {
+          return a.order - b.order
+        })
+        let sexOrder = this.sex === 'male' ? [2, 5, 7, 9] : [1, 4, 6, 8]
+        data = data.filter(obj => {
+          return sexOrder.includes(obj.order) && obj.type === 0
+        })
+        this.modules = data
+        this.loadModules = Array.from(data, value => value._id)
+      })
+    }
   },
-  mounted() {
+  created() {
     getInternetNews().then(res => {
       this.openProjects = res
     })
+    this.fetchData()
   },
   components: {
     Header,
