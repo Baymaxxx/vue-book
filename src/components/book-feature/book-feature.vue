@@ -13,9 +13,9 @@
           </swiper>
         </div>
         <div class='module-wrap'>
-          <FeatureModule></FeatureModule>
-          <FeatureModule></FeatureModule>
-          <FeatureModule></FeatureModule>
+          <div v-for="module in modules" :key="module._id">
+            <FeatureModule :moduleList="module"></FeatureModule>
+          </div>
         </div>
       </div>
     </div>
@@ -33,6 +33,8 @@ export default {
   data() {
     return {
       openProjects: [],
+      modules: [],
+      loadModules: [],
       swiperOption: {
         spaceBetween: 30,
         loop: true,
@@ -66,6 +68,7 @@ export default {
         })
         this.modules = data
         this.loadModules = Array.from(data, value => value._id)
+        console.log(this.modules, this.loadModules)
       })
     }
   },
