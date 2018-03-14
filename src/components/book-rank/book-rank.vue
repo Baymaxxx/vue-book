@@ -4,12 +4,9 @@
     <Header :hasNav='true' title='图书排行'></Header>
     <div class="wrap" ref="wrapper">
       <div class="list-content">
-        <BookList></BookList>
-        <BookList></BookList>
-        <BookList></BookList>
-        <BookList></BookList>
-        <BookList></BookList>
-        <BookList></BookList>
+        <div v-for="book in bookList" :key="book._id">
+          <BookList :book="book"></BookList>
+        </div>
       </div>
     </div>
   </div>
@@ -19,22 +16,40 @@
 import { mapGetters, mapActions } from 'vuex'
 import Header from '../layout/header'
 import BookList from '../base/book-list'
-// import BScroll from 'better-scroll'
+import api from '@/api/api'
 
 export default {
   data() {
-    return {}
+    return {
+      bookList: [],
+      rankId: ''
+    }
   },
   computed: {
-    ...mapGetters(['playHistory'])
+    ...mapGetters(['playHistory', 'userSex'])
   },
   methods: {
-    ...mapActions(['savePlayHistory', 'delPlayHistory'])
+    ...mapActions(['savePlayHistory', 'delPlayHistory']),
+    fetchData: function() {
+      api.getRanks().then(data => {
+        this.maleRankList = data.male
+        this.femaleRankList = data.female
+        this.rankId = this.maleRankList[0]._id
+        console.log(this.rankId)
+      })
+    }
+  },
+  watch: {
+    rankId: function() {
+      this.bookList = []
+      api.getRankBooks(this.rankId).then(data => {
+        this.bookList = data.ranking.books
+        // console.log(this.bookList)
+      })
+    }
   },
   mounted() {
-    // this.$nextTick(() => {
-    //   this.scroll = new BScroll(this.$refs.wrapper, {})
-    // })
+    this.fetchData()
   },
   components: {
     Header,

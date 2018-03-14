@@ -13,7 +13,9 @@
       </div>
     </div>
     <div class="list">
-      <BookList v-for="book in bookList" :key="book"></BookList>
+      <div v-for="book in bookList" :key="book._id">
+        <BookList :book="book"></BookList>
+      </div>
     </div>
   </div>
 </template>
@@ -50,16 +52,16 @@ export default {
         })
         .then(data => {
           this.bookList = data
-          console.log(this.bookList)
-          this.$nextTick(() => {
-            this.$emit('load-result', this.bookInfo.id)
-          })
+          // this.$nextTick(() => {
+          //   this.$emit('load-result', this.bookInfo.id)
+          // })
         })
+      api.getSwiperPictures().then(data => {
+        this.swiperSlides = data
+      })
     }
   },
-  mounted() {
-    console.log(this.moduleList)
-  }
+  mounted() {}
 }
 </script>
 <style lang='scss' scoped>

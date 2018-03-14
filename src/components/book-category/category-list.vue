@@ -1,60 +1,12 @@
 <!-- 图书分类列表 -->
 <template>
     <div class="category-list">
-        <header>男生</header>
+        <header>{{category.title}}</header>
         <div class="content">
-            <div class="list">
+            <div class="list" v-for="catList, index in category.catList" :key="index">
                 <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
-                </div>
-            </div>
-            <div class="list">
-                <div class="inner">
-                    <h4>玄幻</h4>
-                    <span>501151本</span>
+                    <h4>{{catList.name}}</h4>
+                    <span>{{catList.bookCount}}本</span>
                 </div>
             </div>
         </div>
@@ -63,19 +15,25 @@
 
 <script>
 export default {
+  props: {
+    category: Object
+  },
   data() {
     return {}
   },
   components: {},
   computed: {},
-  methods: {}
+  methods: {},
+  mounted() {
+    console.log(this.category)
+  }
 }
 </script>
 <style lang='scss' scoped>
 .category-list {
   header {
-      font-size: 34px;
-      padding: 20px;
+    font-size: 34px;
+    padding: 20px;
   }
   .content {
     display: flex;

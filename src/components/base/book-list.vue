@@ -1,27 +1,27 @@
 <!-- 书目列表 -->
 <template>
   <div class="book-list">
-    <router-link class="list-inner" :to="{name: 'BookDetail', params: {id: 1}}">
+    <router-link class="list-inner" :to="{name: 'BookDetail', params: {id: book._id}}">
       <div class='pic'>
-        <img src="http://statics.zhuishushenqi.com/agent/http://wfqqreader.3g.qq.com/cover/218/622218/t7_622218.jpg" alt="图书" />
+        <img :src="book.cover" :alt="book.title" />
       </div>
       <div class="content">
         <div class="title">
-          <h4>我的极品人生</h4>
+          <h4>{{book.title}}</h4>
         </div>
         <div class="body">
           <p>
-            我从出生前就给人算计了，五阴俱全，天生招厉鬼，懂行的先生说我活不过七岁，死后是要给人养成血衣小鬼害人的。外婆为了救我，给我娶了童养媳，让我过起了安生日子，虽然后...
+            {{ book.shortIntro }}
           </p>
         </div>
         <div class="bottom">
           <div class="author">
             <i class="iconfont icon-user"></i>
-            <span>浮梦六年</span>
+            <span>{{ book.author }}</span>
           </div>
           <ul class="tag">
-            <li class="type">灵异</li>
-            <li class="serialize">连载</li>
+            <li class="type">{{ book.majorCate }}</li>
+            <li class="serialize">{{ book.isSerial ? '连载中' : '完结' }}</li>
           </ul>
         </div>
       </div>
@@ -31,12 +31,16 @@
 
 <script>
 export default {
+  props: {
+    book: Object
+  },
   data() {
     return {}
   },
   components: {},
   computed: {},
-  methods: {}
+  methods: {},
+  created() {}
 }
 </script>
 <style lang='scss' scoped>

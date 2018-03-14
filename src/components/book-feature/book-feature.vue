@@ -52,23 +52,26 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['playHistory'])
+    ...mapGetters(['playHistory', 'userSex'])
+  },
+  watch: {
+    userSex: function() {
+      this.fetchData()
+    }
   },
   methods: {
     ...mapActions(['savePlayHistory', 'delPlayHistory']),
     fetchData() {
       api.getFeaturedData().then(data => {
-        console.log(data)
         data = Array.from(data).sort((a, b) => {
           return a.order - b.order
         })
-        let sexOrder = this.sex === 'male' ? [2, 5, 7, 9] : [1, 4, 6, 8]
+        let sexData = this.userSex === 'man' ? '男生' : '女生'
         data = data.filter(obj => {
-          return sexOrder.includes(obj.order) && obj.type === 0
+          return obj.title.indexOf(sexData) > -1
         })
         this.modules = data
         this.loadModules = Array.from(data, value => value._id)
-        console.log(this.modules, this.loadModules)
       })
     }
   },
