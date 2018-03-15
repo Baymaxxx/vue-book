@@ -3,7 +3,7 @@
   <div class="book-list">
     <router-link class="list-inner" :to="{name: 'BookDetail', params: {id: book._id}}">
       <div class='pic'>
-        <img :src="book.cover" :alt="book.title" />
+        <img :src="book.cover | setCover" :alt="book.title" />
       </div>
       <div class="content">
         <div class="title">
@@ -30,12 +30,21 @@
 </template>
 
 <script>
+import { staticPath } from '~/js/util'
 export default {
   props: {
     book: Object
   },
   data() {
     return {}
+  },
+  filters: {
+    setCover(cover) {
+      if (cover.indexOf(staticPath) > -1) {
+        return cover
+      }
+      return staticPath + cover
+    }
   },
   components: {},
   computed: {},

@@ -1,25 +1,23 @@
 import * as types from './mutation-types'
-
 // import {playMode} from '~/js/config'
-import {savePlay, delPlay, saveFavorite, deleteFavorite, changeUserSexCa} from '~/js/cache'
+import { delPlay, saveFavorite, changeUserSexCa, setcurBook } from '~/js/cache'
 
-export const savePlayHistory = ({commit}, song) => {
-    commit(types.SET_FAVORITE_LIST, savePlay(song))
+export const delPlayHistory = ({ commit }, song) => {
+  commit(types.SET_SHELFBOOK_LIST, delPlay(song))
 }
 
-export const delPlayHistory = ({commit}, song) => {
-    commit(types.SET_FAVORITE_LIST, delPlay(song))
+export const changeUserSex = ({ commit }, usersex) => {
+  commit(types.SET_USER_SEX, changeUserSexCa(usersex))
 }
 
-export const changeUserSex = ({commit}, usersex) => {
-    commit(types.SET_USER_SEX, changeUserSexCa(usersex))
+export const saveshelfBookList = ({ commit }, song) => {
+  commit(types.SET_SHELFBOOK_LIST, saveFavorite(song))
 }
 
-export const saveFavoriteList = ({commit}, song) => {
-    commit(types.SET_FAVORITE_LIST, saveFavorite(song))
+export const addshelfBookList = ({ commit }, book) => {
+  commit(types.SET_SHELFBOOK_LIST, addshelfBookList(book))
 }
 
-export const deleteFavoriteList = ({commit}, song) => {
-    commit(types.SET_FAVORITE_LIST, deleteFavorite(song))
+export const setCurBook = ({ commit }, book) => {
+  commit(types.SET_CUR_BOOK, setcurBook(book))
 }
-

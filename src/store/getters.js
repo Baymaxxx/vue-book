@@ -4,5 +4,6 @@ export const playHistory = state => state.playHistory
 
 export const userSex = state => state.userSex
 
-export const favoriteList = state => state.favoriteList
+export const shelfBookList = state => state.shelfBookList
 
+export const curBook = state => state.curBook

@@ -15,26 +15,32 @@ export default [
   {
     path: '/',
     component: Hello,
-    children: [{
-      path: '/',
-      redirect: '/shelf'
-    }, {
-      path: '/shelf',
-      name: 'BookShelf',
-      component: BookShelf
-    }, {
-      path: '/feature',
-      name: 'BookFeature',
-      component: BookFeature
-    }, {
-      path: '/category',
-      name: 'BookCategory',
-      component: BookCategory
-    }, {
-      path: '/rank',
-      name: 'BookRank',
-      component: BookRank
-    }]
+    children: [
+      {
+        path: '/',
+        redirect: '/shelf'
+      },
+      {
+        path: '/shelf',
+        name: 'BookShelf',
+        component: BookShelf
+      },
+      {
+        path: '/feature',
+        name: 'BookFeature',
+        component: BookFeature
+      },
+      {
+        path: '/category',
+        name: 'BookCategory',
+        component: BookCategory
+      },
+      {
+        path: '/rank',
+        name: 'BookRank',
+        component: BookRank
+      }
+    ]
   },
   {
     path: '/feature/hot',
@@ -45,27 +51,34 @@ export default [
     path: '/search',
     name: 'Search',
     component: Search,
-    children: [{
-      path: '/',
-      redirect: '/search/index'
-    }, {
-      path: '/search/index',
-      name: 'SearchModule',
-      component: SearchModule
-    }, {
-      path: '/search/result',
-      name: 'SearchResult',
-      component: SearchResult
-    }]
-  }, {
+    children: [
+      {
+        path: '/',
+        redirect: '/search/index'
+      },
+      {
+        path: '/search/index',
+        name: 'SearchModule',
+        component: SearchModule
+      },
+      {
+        path: '/search/result',
+        name: 'SearchResult',
+        component: SearchResult
+      }
+    ]
+  },
+  {
     path: '/book-detail/:id',
     name: 'BookDetail',
     component: BookDetail
-  }, {
+  },
+  {
     path: '/book-reading',
     name: 'BookReading',
     component: BookReading
-  }, {
+  },
+  {
     path: '/directories',
     name: 'Directories',
     component: Directories

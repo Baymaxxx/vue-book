@@ -1,16 +1,16 @@
 <!-- 我的书架 -->
 <template>
-    <div class="shelf">
-        <Header :hasNav='false' title='我的书架'></Header>
-        <div class="content">
-            <router-link to="/feature">
-                <div class="inner clearfix">
-                    <i class="iconfont icon-tianjiaadd142"></i>
-                    <p>快去添加你喜欢的小说吧！</p>
-                </div>
-            </router-link>
+  <div class="shelf">
+    <Header :hasNav='false' title='我的书架'></Header>
+    <div class="content">
+      <router-link to="/feature">
+        <div class="inner clearfix">
+          <i class="iconfont icon-tianjiaadd142"></i>
+          <p>快去添加你喜欢的小说吧！</p>
         </div>
+      </router-link>
     </div>
+  </div>
 </template>
 
 <script>

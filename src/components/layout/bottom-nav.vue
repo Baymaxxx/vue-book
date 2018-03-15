@@ -59,7 +59,7 @@ export default {
         border-right: none;
       }
       .router-link-active {
-          color: $color-header;
+        color: $color-header;
       }
     }
   }
