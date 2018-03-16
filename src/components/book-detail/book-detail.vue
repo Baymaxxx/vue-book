@@ -2,61 +2,58 @@
 <template>
   <div class="book-detail hasheader hasbottomnav">
     <Header title="书籍详情" :hasBack='true' :hasSearch='false'></Header>
-    <div class="detail-inner">
+    <div class="detail-inner" v-if="book">
       <div class="title-module">
         <div class="img-wrap">
-          <img src="http://statics.zhuishushenqi.com/agent/http%3A%2F%2Fimg.1391.com%2Fapi%2Fv1%2Fbookcenter%2Fcover%2F1%2F856367%2F_856367_897655.jpg%2F" alt="">
+          <img :src="book.cover" alt="book.title">
         </div>
         <div class="title-wrap">
-          <h4>权谋：升迁有道</h4>
-          <p class="author">苍白的黑夜</p>
-          <p class="type">职场/官场沉浮</p>
+          <h4>{{book.title}}</h4>
+          <p class="author">{{book.author}}</p>
+          <p class="type">{{ book.majorCate }}/{{ book.minorCate }}</p>
           <p class="num-wrap">
-            <span>690万字</span>
+            <span>{{ wordCount }}字</span>
             <span> | </span>
-            <span>连载中</span>
+            <span> {{ book.isSerial ? '连载中' : '完结'}}</span>
           </p>
         </div>
       </div>
       <ul class="data-module">
         <li>
           <p>追人气</p>
-          <p>3758</p>
+          <p>{{ book.latelyFollower }}</p>
         </li>
         <li>
           <p>读者留存率</p>
-          <p>38.8%</p>
+          <p>{{ book.retentionRatio }}%</p>
         </li>
         <li>
           <p>日更新字数/天</p>
-          <p>3758</p>
+          <p>{{ book.serializeWordCount }}</p>
         </li>
       </ul>
       <div class="intro-module">
         <div class="intro">
-          <p>走一步走两步走三步走一步走两步走三步，走一步走两步走三步，走一步走两步走三步，走一步走两步走三步</p>
+          <p>{{ book.longIntro }}</p>
         </div>
         <router-link to="/directories">
           <div class="directories">
-            <div class="title">
+            <div class="title fl">
               <h3>目录</h3>
             </div>
-            <div class="content">
-              <span>2018-01-30 </span>·
-              <span>正文 权谋第2077章 ></span>
+            <div class="content fl">
+              <span class="time fl">{{ book.updated | time }}·</span>
+              <span class="chapter fr">{{ book.lastChapter }} ></span>
             </div>
           </div>
         </router-link>
       </div>
       <div class="comment-module">
-        <CommentModule></CommentModule>
-      </div>
-      <div class="remmend-module">
-        <RemmendModule></RemmendModule>
+        <CommentModule :reviewList="reviewList"></CommentModule>
       </div>
     </div>
     <ul class="page-bottom">
-      <li class="add-shelf">
+      <li class="add-shelf" @click="addShelf">
         <i class="iconfont icon-tianjiaadd142"></i>
         <p>加入书架</p>
       </li>
@@ -73,18 +70,62 @@
 import Header from '../layout/header'
 import CommentModule from '../base/comment-module'
 import RemmendModule from '../base/remmend-module'
+import api from '@/api/api'
+import { staticPath } from '~/js/util'
+import { mapState, mapActions } from 'vuex'
+import moment from 'moment'
 
 export default {
   data() {
-    return {}
+    return {
+      book: null,
+      reviewList: []
+    }
   },
   components: {
     Header,
     CommentModule,
     RemmendModule
   },
-  computed: {},
-  methods: {}
+  filters: {
+    time(update) {
+      return moment(update).format('YYYY-MM-DD')
+    }
+  },
+  computed: {
+    ...mapState(['curBook', 'shelfBookList']),
+    wordCount() {
+      return this.book.wordCount > 10000
+        ? parseInt(this.book.wordCount / 10000) + '万'
+        : this.book.wordCount
+    },
+    serializeWordCount() {
+      return this.book.serializeWordCount < 0 ? 0 : this.book.serializeWordCount
+    }
+  },
+  created() {
+    console.log(this.$route.params.id)
+    api.getBook(this.$route.params.id).then(data => {
+      this.book = data
+      console.log(this.book)
+      let tmpBook = this.book
+      tmpBook.title = data.title
+      tmpBook.cover = staticPath + data.cover
+      tmpBook.author = data.author
+      tmpBook.lastChapter = data.lastChapter
+      tmpBook.updated = data.updated
+      this.setCurBook(tmpBook)
+    })
+    api.getReview(this.$route.params.id).then(data => {
+      this.reviewList = data
+    })
+  },
+  methods: {
+    ...mapActions(['setCurBook', 'addshelfBookList']),
+    addShelf() {
+      this.addshelfBookList(this.curBook)
+    }
+  }
 }
 </script>
 <style lang='scss' scoped>
@@ -151,9 +192,22 @@ export default {
       font-size: 30px;
       border-top: 1px solid $color-border; /*no*/
       border-bottom: 1px solid $color-border; /*no*/
+      .title {
+        width: 20%;
+      }
       .content {
+        width: 80%;
         color: #777;
         font-size: 26px;
+        .time {
+          width: 40%;
+        }
+        .chapter {
+          display: inline-block;
+          text-align: right;
+          width: 60%;
+          @include ell();
+        }
       }
     }
   }

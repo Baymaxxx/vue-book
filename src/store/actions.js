@@ -1,6 +1,12 @@
 import * as types from './mutation-types'
 // import {playMode} from '~/js/config'
-import { delPlay, saveFavorite, changeUserSexCa, setcurBook } from '~/js/cache'
+import {
+  delPlay,
+  saveFavorite,
+  changeUserSexCa,
+  setcurBook,
+  addshelfBookListCa
+} from '~/js/cache'
 
 export const delPlayHistory = ({ commit }, song) => {
   commit(types.SET_SHELFBOOK_LIST, delPlay(song))
@@ -15,7 +21,7 @@ export const saveshelfBookList = ({ commit }, song) => {
 }
 
 export const addshelfBookList = ({ commit }, book) => {
-  commit(types.SET_SHELFBOOK_LIST, addshelfBookList(book))
+  commit(types.SET_SHELFBOOK_LIST, addshelfBookListCa(book))
 }
 
 export const setCurBook = ({ commit }, book) => {

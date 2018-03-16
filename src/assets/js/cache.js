@@ -45,7 +45,8 @@ export function loadCurBook() {
   return storage.get('CUR_BOOK', null)
 }
 
-export function addshelfBookList(book) {
-  let shelfBookList = [...new Set([book, ...storage.get('SHELFBOOK_LIST')])]
+export function addshelfBookListCa(book) {
+  console.log(loadBookList())
+  let shelfBookList = [...new Set([book, ...loadBookList()])]
   return storage.set('SHELFBOOK_LIST', shelfBookList)
 }

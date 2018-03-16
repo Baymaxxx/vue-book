@@ -1,18 +1,20 @@
 <!-- 评论模块 -->
 <template>
-    <div class="comment-module">
-        <h4>热门书评</h4>
-        <CommentList class="comment-list"></CommentList>
-        <CommentList class="comment-list"></CommentList>
-        <CommentList class="comment-list"></CommentList>
-        <CommentList class="comment-list"></CommentList>
+  <div class="comment-module">
+    <h4>热门书评</h4>
+    <div v-for="review, index in reviewList" :key="index">
+      <CommentList :review="review" class="comment-list"></CommentList>
     </div>
+  </div>
 </template>
 
 <script>
 import CommentList from './comment-list'
 
 export default {
+  props: {
+    reviewList: Array
+  },
   data() {
     return {}
   },
@@ -20,7 +22,10 @@ export default {
     CommentList
   },
   computed: {},
-  methods: {}
+  methods: {},
+  created() {
+    console.log(this.reviewList, 1)
+  }
 }
 </script>
 <style lang='scss' scoped>
