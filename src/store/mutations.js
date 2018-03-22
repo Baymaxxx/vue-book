@@ -19,11 +19,11 @@ const mutations = {
   },
   [types.SET_CUR_BOOK](state, book) {
     state.curBook = book
-    if (state.curBook.isInShelf) {
+    if (!state.curBook.isInShelf) {
       for (let [idx, shelfBook] of Object.entries(state.shelfBookList)) {
-        if (shelfBook.id === state.curBook.id) {
+        if (shelfBook._id === state.curBook._id) {
           state.shelfBookList.splice(idx, 1, state.curBook)
-          storage.set('SHEFLBOOK', state.shelfBookList)
+          storage.set('SHELFBOOK_LIST', state.shelfBookList)
           break
         }
       }

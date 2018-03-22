@@ -26,6 +26,7 @@ export function delPlay(song) {
 }
 
 export function loadBookList() {
+  console.log(storage.get('SHELFBOOK_LIST', []))
   return storage.get('SHELFBOOK_LIST', [])
 }
 
@@ -46,7 +47,23 @@ export function loadCurBook() {
 }
 
 export function addshelfBookListCa(book) {
-  console.log(loadBookList())
-  let shelfBookList = [...new Set([book, ...loadBookList()])]
+  let isExist = false
+  let shelfBookList = loadBookList()
+  for (let shelfBook of Object.values(shelfBookList)) {
+    console.log(shelfBook._id, book._id)
+    if (shelfBook._id === book._id) {
+      isExist = true
+      break
+    }
+  }
+  if (!isExist) {
+    shelfBookList.push(book)
+    return storage.set('SHELFBOOK_LIST', shelfBookList)
+  }
+}
+
+export function delshelfBookListCa(book) {
+  let shelfBookList = loadBookList()
+  shelfBookList = shelfBookList.splice(shelfBookList.find(book), 1)
   return storage.set('SHELFBOOK_LIST', shelfBookList)
 }

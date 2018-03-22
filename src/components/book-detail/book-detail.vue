@@ -5,7 +5,7 @@
     <div class="detail-inner" v-if="book">
       <div class="title-module">
         <div class="img-wrap">
-          <img :src="book.cover" alt="book.title">
+          <img :src="tmpBook.cover" alt="book.title">
         </div>
         <div class="title-wrap">
           <h4>{{book.title}}</h4>
@@ -22,6 +22,7 @@
         <li>
           <p>追人气</p>
           <p>{{ book.latelyFollower }}</p>
+
         </li>
         <li>
           <p>读者留存率</p>
@@ -54,8 +55,9 @@
     </div>
     <ul class="page-bottom">
       <li class="add-shelf" @click="addShelf">
-        <i class="iconfont icon-tianjiaadd142"></i>
-        <p>加入书架</p>
+        <i class="iconfont icon-tianjiaadd142" :data-id="tmpBook.isInShelf"></i>
+        <p v-if="tmpBook.isInShelf">已放入书架</p>
+        <p v-else :class="tmpBook">加入书架</p>
       </li>
       <li class="read">
         <router-link to="/book-reading">
@@ -79,7 +81,8 @@ export default {
   data() {
     return {
       book: null,
-      reviewList: []
+      reviewList: [],
+      tmpBook: {}
     }
   },
   components: {
@@ -104,17 +107,34 @@ export default {
     }
   },
   created() {
-    console.log(this.$route.params.id)
-    api.getBook(this.$route.params.id).then(data => {
+    let paramsId = this.$route.params.id
+    console.log(this.tmpBook, 12)
+    api.getBook(paramsId).then(data => {
       this.book = data
-      console.log(this.book)
-      let tmpBook = this.book
-      tmpBook.title = data.title
-      tmpBook.cover = staticPath + data.cover
-      tmpBook.author = data.author
-      tmpBook.lastChapter = data.lastChapter
-      tmpBook.updated = data.updated
-      this.setCurBook(tmpBook)
+      console.log(data)
+      this.tmpBook._id = data._id
+      this.tmpBook.title = data.title
+      this.tmpBook.cover = staticPath + data.cover
+      this.tmpBook.author = data.author
+      this.tmpBook.lastChapter = data.lastChapter
+      this.tmpBook.updated = data.updated
+      this.tmpBook.isInShelf = false
+      this.tmpBook.shortIntro = data.longIntro
+      this.tmpBook.majorCate = data.majorCate
+      this.tmpBook.isSerial = data.isSerial
+      this.tmpBook.readChapter = data.readChapter // 已读章节
+      this.tmpBook.sort = false // 目录顺序，false：正序， true：倒序
+      for (let book of Object.values(this.shelfBookList)) {
+        if (book._id === paramsId) {
+          this.tmpBook.isInShelf = true
+          this.setCurBook(book)
+          break
+        }
+      }
+      if (!this.tmpBook.isInShelf) {
+        this.tmpBook.isInShelf = false // 是否已在书架中，false：不在，true：在
+        this.setCurBook(this.tmpBook)
+      }
     })
     api.getReview(this.$route.params.id).then(data => {
       this.reviewList = data
@@ -123,7 +143,13 @@ export default {
   methods: {
     ...mapActions(['setCurBook', 'addshelfBookList']),
     addShelf() {
-      this.addshelfBookList(this.curBook)
+      if (this.tmpBook.isInShelf) {
+        return
+      }
+      this.tmpBook.isInShelf = true
+      this.setCurBook(this.tmpBook)
+      this.addshelfBookList(this.tmpBook)
+      this.$forceUpdate()
     }
   }
 }

@@ -67,6 +67,7 @@ export default {
       h4 {
         font-weight: bold;
         font-size: 24px;
+        text-align: left;
       }
     }
     .body {

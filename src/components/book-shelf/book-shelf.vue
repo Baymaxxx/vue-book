@@ -3,14 +3,18 @@
   <div class="shelf">
     <Header :hasNav='false' title='我的书架'></Header>
     <div class="content">
-      <router-link to="/feature" v-if="!shelfBookList">
+      <router-link to="/feature" v-if="!shelfBookList.length">
         <div class="inner clearfix">
           <i class="iconfont icon-tianjiaadd142"></i>
           <p>快去添加你喜欢的小说吧！</p>
         </div>
       </router-link>
-      <div class="list" v-for="book, index in shelfBookList" :key="index">
-        <BookList :book="book"></BookList>
+      <div v-if="shelfBookList">
+        <slip-del v-for="book, index in shelfBookList" :key="index" ref="slipDel" del-text="删除" @slip-open="slipOpen" @del-click="del(book)">
+          <div slot="item" class="demo-item">
+            <BookList :book="book"></BookList>
+          </div>
+        </slip-del>
       </div>
     </div>
   </div>
@@ -18,9 +22,10 @@
 
 <script>
 import { getInternetNews } from '@/api/news'
-import { mapGetters, mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import Header from '../layout/header'
 import BookList from '../base/book-list'
+import SlipDel from 'vue-slip-delete'
 
 export default {
   data() {
@@ -29,10 +34,25 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['playHistory', 'shelfBookList'])
+    ...mapState(['playHistory', 'shelfBookList'])
   },
   methods: {
-    ...mapActions(['savePlayHistory', 'delPlayHistory'])
+    ...mapActions(['savePlayHistory', 'delshelfBookList']),
+    slipOpen(target) {
+      // 滑开一个删除，其他删除都关闭
+      if (this.shelfBookList.length) {
+        this.$refs.slipDel.forEach(item => {
+          if (item.$el !== target.parentNode) {
+            item.setOpen(false)
+          }
+        })
+      }
+    },
+    del(book) {
+      // 删除回调
+      // this.delshelfBookList(book)
+      alert('删除')
+    }
   },
   mounted() {
     getInternetNews().then(res => {
@@ -44,7 +64,8 @@ export default {
   },
   components: {
     Header,
-    BookList
+    BookList,
+    SlipDel
   }
 }
 </script>
@@ -66,6 +87,7 @@ export default {
     }
     .book-list {
       padding: 0 40px;
+      border-bottom: 1px solid $color-border; /* px */
     }
   }
 }
